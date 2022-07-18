@@ -4,10 +4,10 @@ import { IProductService } from "src/evidence/application/services/IProductServi
 
 @Controller("/product")
 export class ProductController {
-    constructor(@Inject(IProductService) private readonly productService: IProductService) {}
-    
-    @Get()
-    async getAll(): Promise<ProductDTO[] | null> {
-        return this.productService.getAll();
-    }
+  constructor(@Inject(IProductService) private readonly productService: IProductService) {}
+
+  @Get()
+  async getAll(): Promise<ProductDTO[] | null> {
+    return this.productService.getAll();
+  }
 }

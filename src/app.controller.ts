@@ -1,20 +1,16 @@
 import { Controller, Get, Inject, Param } from "@nestjs/common";
-import { IProductService } from "./evidence/application/services/IProductService";
-import { ProductService } from "./evidence/application/services/ProductService";
 
 @Controller("/")
 export class AppController {
-    
-    // @Get("")
-    // getUsers(){
-    //     let something = this.productService.getAll()
-    //     return { name:"Hello World!"};
-    // }
+  @Get("")
+  async healthCheck() {
+    let jesusDateBirth = new Date("1940-01-01");
 
-    // @Get("/:userId")
-    // getUser(@Param() params){
-    //     return { name:"Hello World!", params};
-    // }
-
-
+    let timeelapsed = new Date().getTime() - jesusDateBirth.getTime();
+    let seconds = Math.floor(timeelapsed / 1000);
+    return {
+      status: "OK",
+      timeelapsed: seconds,
+    };
+  }
 }
