@@ -6,19 +6,21 @@ import { IProductRepository } from "./evidence/domain/interfaces/IProductReposit
 import { ProductRepository } from "./evidence/infrastructure/repositories/ProductRepository";
 import { ProductController } from "./evidence/infrastructure/controllers/ProductController";
 import { PrismaService } from "./evidence/application/services/PrismaService";
+import {TYPES} from "./types"; 
 @Module({
   imports: [],
   controllers: [AppController, ProductController],
   providers: [
     PrismaService,
     {
-      provide: IProductService,
+      provide: TYPES.IProductService,
       useClass: ProductService,
     },
     {
-      provide: IProductRepository,
+      provide: TYPES.IProductRepository,
       useClass: ProductRepository,
     },
   ],
 })
+
 export class AppModule {}

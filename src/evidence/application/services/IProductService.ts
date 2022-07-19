@@ -1,5 +1,4 @@
-import { ProductDTO } from "../models/DTO/ProductDTO";
+import { ServiceResult } from "../response/ServiceResult";
 export interface IProductService {
-  getAll(): Promise<ProductDTO[] | null>;
+  getAll(): Promise<ServiceResult>;
 }
-export const IProductService = Symbol("IProductService");
