@@ -1,16 +1,12 @@
 import { Controller, Get, Inject, Param } from "@nestjs/common";
 
-@Controller("/")
+@Controller("/healthCheck")
 export class AppController {
-  @Get("")
+  @Get()
   async healthCheck() {
-    let jesusDateBirth = new Date("1940-01-01");
-
-    let timeelapsed = new Date().getTime() - jesusDateBirth.getTime();
-    let seconds = Math.floor(timeelapsed / 1000);
     return {
-      status: "OK",
-      timeelapsed: seconds,
+      status: "UP",
+      date: new Date(),
     };
   }
 }
