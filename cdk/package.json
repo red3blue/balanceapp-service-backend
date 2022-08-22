@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "deploy-dev": "yarn run build && cdk deploy evidence-service-api-development"
+    "deploy-dev": "yarn run build && cdk deploy balanceapp-service-api-development"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
