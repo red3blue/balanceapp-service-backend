@@ -9,13 +9,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id Int @id @unique @default(autoincrement())
+model User {
+  id String @id @unique @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isDeleted Boolean @default(false)
-  name String
-  description String
-  price Int
 
+  name String
+  email String
+  password String
+  incomes Income[]
+  expenses Expense[]
+  categories Category[]
+  tokens Token[]
+}
+
+model Token {
+  id String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean @default(false)
+
+  token String
+  ttl Int
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean @default(false)
+
+  name String
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  incomes Income[]
+  expenses Expense[]
+}
+
+model Income {
+  id String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean @default(false)
+
+  name String
+  amount Int
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Expense {
+  id String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean @default(false)
+
+  name String
+  amount Int
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
 }

@@ -1,6 +1,6 @@
 export const TYPES = {
-  IProductService: Symbol("IProductService"),
-  IProductRepository: Symbol("IProductRepository")
+  IIncomeService: Symbol("IncomeService"),
+  IIncomeRepository: Symbol("IIncomeRepository")
 };
 
 export default TYPES;

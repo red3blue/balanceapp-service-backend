@@ -1,24 +1,22 @@
 import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { ProductService } from "./evidence/application/services/ProductService";
-import { IProductService } from "./evidence/application/services/IProductService";
-import { IProductRepository } from "./evidence/domain/interfaces/IProductRepository";
-import { ProductRepository } from "./evidence/infrastructure/repositories/ProductRepository";
-import { ProductController } from "./evidence/infrastructure/controllers/ProductController";
-import { PrismaService } from "./evidence/application/services/PrismaService";
 import {TYPES} from "./types"; 
+import { PrismaService } from "./balanceapp/application/services/PrismaService";
+import { IncomeService } from "./balanceapp/application/services/IncomeService";
+import { IncomeRepository } from "./balanceapp/infrastructure/repositories/IncomeRepository";
+import { AppController } from "./app.controller";
+import { IncomeController } from "./balanceapp/infrastructure/controllers/IncomeController";
 @Module({
   imports: [],
-  controllers: [AppController, ProductController],
+  controllers: [AppController, IncomeController],
   providers: [
     PrismaService,
     {
-      provide: TYPES.IProductService,
-      useClass: ProductService,
+      provide: TYPES.IIncomeService,
+      useClass: IncomeService,
     },
     {
-      provide: TYPES.IProductRepository,
-      useClass: ProductRepository,
+      provide: TYPES.IIncomeRepository,
+      useClass: IncomeRepository,
     },
   ],
 })

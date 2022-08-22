@@ -24,25 +24,60 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+BalanceApp Service API
+
+## Getting started
+
+```bash
+# install dependencies
+$ yarn install
+
+# update pending migrations
+$ yarn run migrations
+
+# start the application
+$ yarn run start:dev
+
+```
 
 ## Installation
 
 ```bash
-$ npm install
+# install dependencies
+$ yarn install
+
+# update pending migrations
+$ yarn run migrations
+
 ```
+
+## Db and migrations
+  
+  ```bash
+  # create first migration
+  $ yarn prisma migrate dev --name init
+
+  # create prisma client
+  $ yarn prisma generate
+
+  # create migration
+  $ yarn prisma migrate dev --name some-name
+
+  # update pending migrations
+  $ yarn prisma migrate deploy
+  ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn run start
 
 # watch mode
-$ npm run start:dev
+$ yarn run start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn run start:prod
 ```
 
 ## Test

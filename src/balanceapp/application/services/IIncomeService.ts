@@ -1,4 +1,4 @@
 import { ServiceResult } from "../response/ServiceResult";
-export interface IProductService {
+export interface IIncomeService {
   getAll(): Promise<ServiceResult>;
 }
