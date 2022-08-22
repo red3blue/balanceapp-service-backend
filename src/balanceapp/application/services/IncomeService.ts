@@ -5,6 +5,7 @@ import { HttpStatusCodes } from "../response/HttpStatusCodes";
 import { ServiceResult } from "../response/ServiceResult";
 import { IIncomeService } from "./IIncomeService";
 import { TYPES } from "src/types";
+import { Income } from "src/balanceapp/domain/entities/Income";
 @Injectable()
 export class IncomeService implements IIncomeService {
   constructor(@Inject(TYPES.IIncomeRepository) private readonly _incomeRepository: IIncomeRepository) {}
@@ -21,6 +22,14 @@ export class IncomeService implements IIncomeService {
     //   incomes.push(income);
     // }
 
-    return new ServiceResult(HttpStatusCodes.NOT_FOUND, "Ingresos obtenidos correctamente", incomes);
+    return new ServiceResult(HttpStatusCodes.OK, "Ingresos obtenidos correctamente", items);
+  }
+
+  async createAsync(authorization: string, income: IncomeDto): Promise<ServiceResult> {
+
+    const incomeData = new Income();
+
+    const createdIncome = await this._incomeRepository.createAsync(authorization, incomeData);
+    return new ServiceResult(HttpStatusCodes.OK, "Ingreso creado correctamente", createdIncome);
   }
 }

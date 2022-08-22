@@ -15,4 +15,13 @@ export class IncomeRepository implements IIncomeRepository {
       return null;
     }
   }
+
+  async createAsync(authorization: string, income: Income): Promise<Income | null> {
+    try {
+      const createdIncome = await this.dbContext.income.create({ data: income });
+      return createdIncome;
+    } catch (error) {
+      return null;
+    }
+  }
 }
