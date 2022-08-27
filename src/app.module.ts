@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import {TYPES} from "./types"; 
+import { TYPES } from "./types";
 import { PrismaService } from "./balanceapp/application/services/PrismaService";
 import { IncomeService } from "./balanceapp/application/services/IncomeService";
 import { IncomeRepository } from "./balanceapp/infrastructure/repositories/IncomeRepository";
@@ -28,8 +28,7 @@ import { UserRepository } from "./balanceapp/infrastructure/repositories/UserRep
     {
       provide: TYPES.IUserRepository,
       useClass: UserRepository,
-    }
+    },
   ],
 })
-
 export class AppModule {}

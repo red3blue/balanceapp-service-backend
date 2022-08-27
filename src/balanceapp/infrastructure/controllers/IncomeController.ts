@@ -18,7 +18,6 @@ export class IncomeController {
       if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
       throw err;
     }
-
   }
 
   @Post("/create")

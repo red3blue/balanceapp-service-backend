@@ -5,7 +5,7 @@ export class Category {
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
-  
+
   name: string;
   userId: string;
 }

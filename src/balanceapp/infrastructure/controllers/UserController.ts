@@ -8,19 +8,6 @@ import { TYPES } from "src/types";
 export class UserController {
   constructor(@Inject(TYPES.IUserService) private readonly _userService: IUserService) {}
 
-  // @Get("/all")
-  // async getAll(): Promise<ServiceResult | any> {
-  //   try {
-  //     const serviceResult = await this._incomeService.getAll();
-  //     return serviceResult;
-  //   } catch (error) {
-  //     let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-  //     if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
-  //     throw err;
-  //   }
-
-  // }
-
   @Post("/create")
   async create(@Body() userDto: UserDto): Promise<ServiceResult> {
     try {
@@ -30,6 +17,22 @@ export class UserController {
       user.password = userDto.password;
 
       const serviceResult = await this._userService.createAsync(user);
+      return serviceResult;
+    } catch (error) {
+      let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+      if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
+      throw err;
+    }
+  }
+
+  @Post("/login")
+  async login(@Body() userDto: UserDto): Promise<ServiceResult> {
+    try {
+      const user = new UserDto();
+      user.email = userDto.email;
+      user.password = userDto.password;
+
+      const serviceResult = await this._userService.loginAsync(user);
       return serviceResult;
     } catch (error) {
       let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);

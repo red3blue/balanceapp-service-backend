@@ -26,7 +26,6 @@ export class IncomeService implements IIncomeService {
   }
 
   async createAsync(authorization: string, income: IncomeDto): Promise<ServiceResult> {
-
     const incomeData = new Income();
 
     const createdIncome = await this._incomeRepository.createAsync(authorization, incomeData);
