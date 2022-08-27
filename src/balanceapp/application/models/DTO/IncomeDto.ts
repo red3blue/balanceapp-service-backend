@@ -4,7 +4,7 @@ import { User } from "src/balanceapp/domain/entities/User";
 export class IncomeDto {
   id: string;
   name: string;
-  ammount: number;
+  amount: number;
   categoryId: string;
   userId: string;
   category: Category | null;

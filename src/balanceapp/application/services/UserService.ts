@@ -6,6 +6,7 @@ import { IUserService } from "./IUserService";
 import { IUserRepository } from "src/balanceapp/domain/interfaces/IUserRepository";
 import { UserDto } from "../models/DTO/UserDto";
 import { User } from "src/balanceapp/domain/entities/User";
+
 @Injectable()
 export class UserService implements IUserService {
   constructor(@Inject(TYPES.IUserRepository) private readonly _userRepository: IUserRepository) {}

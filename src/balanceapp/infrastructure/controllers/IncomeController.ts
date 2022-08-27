@@ -21,8 +21,12 @@ export class IncomeController {
   }
 
   @Post("/create")
-  async create(@Headers("Authorization") authorization: string, @Body() income: IncomeDto): Promise<ServiceResult> {
+  async create(@Headers("Authorization") authorization: string, @Body() incomeDto: IncomeDto): Promise<ServiceResult> {
     try {
+      const income = new IncomeDto();
+      income.name = incomeDto.name;
+      income.amount = incomeDto.amount;
+      income.categoryId = incomeDto.categoryId;
       const serviceResult = await this._incomeService.createAsync(authorization, income);
       return serviceResult;
     } catch (error) {

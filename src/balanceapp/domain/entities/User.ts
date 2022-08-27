@@ -6,6 +6,7 @@ export class User {
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
+  token: string;
 
   name: string;
   email: string;

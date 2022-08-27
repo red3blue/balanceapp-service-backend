@@ -9,8 +9,18 @@ export class IncomeRepository implements IIncomeRepository {
 
   async getAll(): Promise<Income[] | null> {
     try {
+      const incomes = new Array<Income>();
       const items = await this.dbContext.income.findMany();
-      return items;
+      for (const item of items) {
+        const income = new Income();
+        income.id = item.id;
+        income.name = item.name;
+        income.amount = item.amount;
+        income.categoryId = item.categoryId;
+        income.userId = item.userId;
+        incomes.push(income);
+      }
+      return incomes
     } catch (error) {
       return null;
     }
@@ -19,7 +29,14 @@ export class IncomeRepository implements IIncomeRepository {
   async createAsync(authorization: string, income: Income): Promise<Income | null> {
     try {
       const createdIncome = await this.dbContext.income.create({ data: income });
-      return createdIncome;
+
+      const incomeResponse = new Income();
+      incomeResponse.id = createdIncome.id;
+      incomeResponse.name = createdIncome.name;
+      incomeResponse.amount = createdIncome.amount;
+      incomeResponse.categoryId = createdIncome.categoryId;
+      incomeResponse.userId = createdIncome.userId;
+      return incomeResponse;
     } catch (error) {
       return null;
     }
