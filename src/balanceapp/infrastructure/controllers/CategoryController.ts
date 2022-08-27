@@ -33,4 +33,18 @@ export class CategoryController {
       throw err;
     }
   }
+
+  @Post("/create/user")
+  async createCategoryForUser(@Headers("Authorization") authorization: string, @Body() body: CategoryDto): Promise<ServiceResult> {
+    try {
+      const category = new CategoryDto();
+      category.name = body.name;
+      const serviceResult = await this._categoryService.createCategoryForUserAsync(authorization ?? "", category);
+      return serviceResult;
+    } catch (error) {
+      let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+      if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
+      throw err;
+    }
+  }
 }

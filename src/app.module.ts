@@ -11,6 +11,7 @@ import { UserRepository } from "./balanceapp/infrastructure/repositories/UserRep
 import { CategoryRepository } from "./balanceapp/infrastructure/repositories/CategoryRepository";
 import { CategoryService } from "./balanceapp/application/services/CategoryService";
 import { CategoryController } from "./balanceapp/infrastructure/controllers/CategoryController";
+import { TokenRepository } from "./balanceapp/infrastructure/repositories/TokenRepository";
 @Module({
   imports: [],
   controllers: [AppController, IncomeController, UserController, CategoryController],
@@ -39,6 +40,10 @@ import { CategoryController } from "./balanceapp/infrastructure/controllers/Cate
     {
       provide: TYPES.ICategoryService,
       useClass: CategoryService,
+    },
+    {
+      provide: TYPES.ITokenRepository,
+      useClass: TokenRepository,
     }
   ],
 })

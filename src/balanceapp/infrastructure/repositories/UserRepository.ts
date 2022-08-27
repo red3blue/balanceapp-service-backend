@@ -25,7 +25,7 @@ export class UserRepository implements IUserRepository {
 
       return user;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return null;
     }
   }
@@ -49,7 +49,7 @@ export class UserRepository implements IUserRepository {
       userResponse.token = token;
       return userResponse;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return null;
     }
   }

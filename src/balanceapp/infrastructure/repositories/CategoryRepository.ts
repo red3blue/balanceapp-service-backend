@@ -6,9 +6,6 @@ import { Category } from "src/balanceapp/domain/entities/Category";
 @Injectable()
 export class CategoryRepository implements ICategoryRepository {
   constructor(@Inject(PrismaService) private readonly dbContext: PrismaService) {}
-  validateAuthorization(authorization: string) {
-    throw new Error("Method not implemented.");
-  }
 
   async createAsync(category: Category): Promise<Category> {
       try {
@@ -20,8 +17,71 @@ export class CategoryRepository implements ICategoryRepository {
         
         return categoryResponse;
       } catch (error) {
-        console.log(error);
+        console.error(error);
         return null;
       }
+  }
+
+  async findCategoryByNameAsync(name: string): Promise<Category> {
+    try {
+      const categoryFound = await this.dbContext.category.findUnique({
+        where: {
+          name: name,
+        },
+      });
+
+      if (!categoryFound) return null;
+      
+      const categoryResponse = new Category();
+      categoryResponse.id = categoryFound.id;
+      categoryResponse.name = categoryFound.name.charAt(0).toUpperCase() + categoryFound.name.slice(1);
+
+      return categoryResponse;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  async attachCategoryToUserAsync(userId: string, categoryId: string): Promise<Category> {
+    try {
+      const newUserCategory = await this.dbContext.userCategory.create({
+        data: {
+          userId: userId,
+          categoryId: categoryId,
+        },
+      });
+
+      if (!newUserCategory) return null;
+      
+      const categoryResponse = new Category();
+      categoryResponse.id = newUserCategory.id;
+      // categoryResponse.name = newUserCategory.name.charAt(0).toUpperCase() + newUserCategory.name.slice(1);
+
+      return categoryResponse;
+    } catch (error) {
+      
+    }
+  }
+
+  async findUserCategoryByUserIdCategoryIdAsync(userId: string, categoryId: string): Promise<Category> {
+    try {
+      const userCategoryFound = await this.dbContext.userCategory.findFirst({
+        where: {
+          userId: userId,
+          categoryId: categoryId,
+          isDeleted: false,
+        },
+      });
+
+      if (!userCategoryFound) return null;
+      
+      const categoryResponse = new Category();
+      categoryResponse.id = userCategoryFound.id;
+      return categoryResponse;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 }
