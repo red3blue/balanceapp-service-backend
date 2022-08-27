@@ -1,8 +1,11 @@
 export const TYPES = {
-  IIncomeService: Symbol("IIncomeService"),
-  IIncomeRepository: Symbol("IIncomeRepository"),
   IUserService: Symbol("IUserService"),
+  ICategoryService: Symbol("ICategoryService"),
+  IIncomeService: Symbol("IIncomeService"),
+  
   IUserRepository: Symbol("IUserRepository"),
+  ICategoryRepository: Symbol("ICategoryRepository"),
+  IIncomeRepository: Symbol("IIncomeRepository"),
 };
 
 export default TYPES;

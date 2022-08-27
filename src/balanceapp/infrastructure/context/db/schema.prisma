@@ -20,8 +20,8 @@ model User {
   password String
   incomes Income[]
   expenses Expense[]
-  categories Category[]
   tokens Token[]
+  userCategories UserCategory[]
 }
 
 model Token {
@@ -42,11 +42,22 @@ model Category {
   updatedAt DateTime @updatedAt
   isDeleted Boolean @default(false)
 
-  name String
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  name String @unique
   incomes Income[]
   expenses Expense[]
+  userCategories UserCategory[]
+}
+
+model UserCategory {
+  id String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean @default(false)
+
+  userId String
+  categoryId String
+  user User @relation(fields: [userId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
 }
 
 model Income {

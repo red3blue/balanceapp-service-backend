@@ -8,9 +8,12 @@ import { IncomeController } from "./balanceapp/infrastructure/controllers/Income
 import { UserController } from "./balanceapp/infrastructure/controllers/UserController";
 import { UserService } from "./balanceapp/application/services/UserService";
 import { UserRepository } from "./balanceapp/infrastructure/repositories/UserRepository";
+import { CategoryRepository } from "./balanceapp/infrastructure/repositories/CategoryRepository";
+import { CategoryService } from "./balanceapp/application/services/CategoryService";
+import { CategoryController } from "./balanceapp/infrastructure/controllers/CategoryController";
 @Module({
   imports: [],
-  controllers: [AppController, IncomeController, UserController],
+  controllers: [AppController, IncomeController, UserController, CategoryController],
   providers: [
     PrismaService,
     {
@@ -29,6 +32,14 @@ import { UserRepository } from "./balanceapp/infrastructure/repositories/UserRep
       provide: TYPES.IUserRepository,
       useClass: UserRepository,
     },
+    {
+      provide: TYPES.ICategoryRepository,
+      useClass: CategoryRepository,
+    },
+    {
+      provide: TYPES.ICategoryService,
+      useClass: CategoryService,
+    }
   ],
 })
 export class AppModule {}

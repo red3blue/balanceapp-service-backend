@@ -24,8 +24,7 @@ export class UserService implements IUserService {
     const createdUser = await this._userRepository.createAsync(user);
 
     if (createdUser == null) throw new ServiceResult(HttpStatusCodes.BAD_REQUEST, "No se pudo crear el usuario");
-
-    // const userResponse = this.createUserResponse(createdUser);
+    
     return new ServiceResult(HttpStatusCodes.OK, "Ingreso creado correctamente", createdUser);
   }
 
