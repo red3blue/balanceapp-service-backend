@@ -16,6 +16,12 @@ export class TokenRepository implements ITokenRepository {
         });
 
         if (!tokenFound) return null;
+        
+        const now = new Date();
+        const createdAt = new Date(tokenFound.createdAt)
+
+        createdAt.setSeconds(createdAt.getSeconds() + tokenFound.ttl);
+        if (now > createdAt) return null;
         return new Token(tokenFound.token, tokenFound.userId);
       } catch (error) {
         return null

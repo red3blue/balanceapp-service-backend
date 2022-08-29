@@ -56,7 +56,6 @@ export class CategoryRepository implements ICategoryRepository {
       
       const categoryResponse = new Category();
       categoryResponse.id = newUserCategory.id;
-      // categoryResponse.name = newUserCategory.name.charAt(0).toUpperCase() + newUserCategory.name.slice(1);
 
       return categoryResponse;
     } catch (error) {

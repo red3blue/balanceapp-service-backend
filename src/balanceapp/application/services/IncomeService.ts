@@ -7,15 +7,16 @@ import { IIncomeService } from "./IIncomeService";
 import { TYPES } from "src/types";
 import { Income } from "src/balanceapp/domain/entities/Income";
 import { IUserRepository } from "src/balanceapp/domain/interfaces/IUserRepository";
+import { ITokenRepository } from "src/balanceapp/domain/interfaces/ITokenRepository";
 
 @Injectable()
 export class IncomeService implements IIncomeService {
   private readonly _incomeRepository: IIncomeRepository;
-  private readonly _userRepository: IUserRepository;
+  private readonly _tokenRepository: ITokenRepository;
 
-  constructor(@Inject(TYPES.IIncomeRepository) IncomeRepository: IIncomeRepository, @Inject(TYPES.IUserRepository) UserRepository: IUserRepository) {
+  constructor(@Inject(TYPES.IIncomeRepository) IncomeRepository: IIncomeRepository, @Inject(TYPES.ITokenRepository) TokenRepository: ITokenRepository) {
     this._incomeRepository = IncomeRepository;
-    this._userRepository = UserRepository;
+    this._tokenRepository = TokenRepository;
   }
 
   async getAll(): Promise<ServiceResult> {
@@ -27,15 +28,16 @@ export class IncomeService implements IIncomeService {
   }
 
   async createAsync(authorization: string, incomeDto: IncomeDto): Promise<ServiceResult> {
-    const validUser = this._userRepository.validateAuthorization(authorization);
-    if (validUser === null) return new ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Usuario no autorizado");
+    const validToken = await this._tokenRepository.findValidTokenAsync(authorization);
+
+    if (validToken == null) throw new  ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
 
     const income = new Income();
 
     income.name = incomeDto.name;
     income.amount = incomeDto.amount;
     income.categoryId = incomeDto.categoryId;
-    income.userId = validUser.id;
+    income.userId = validToken.userId
 
     const validIncome = income.validateFields();
 
