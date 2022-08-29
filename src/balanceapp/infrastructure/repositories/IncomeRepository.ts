@@ -46,6 +46,46 @@ export class IncomeRepository implements IIncomeRepository {
     }
   }
 
+  async getByUserIdAsync(userId: string): Promise<Income[]> {
+    try {
+      const incomes = new Array<Income>();
+      const items = await this.dbContext.income.findMany({
+        where: {
+          userId: userId,
+        },
+        include: {
+          category: true,
+          user: true,
+        },
+      });
+
+      for (const item of items) {
+        const income = new Income();
+        const category = new Category();
+        const user = new User();
+        // income.id = item.id;
+        income.name = item.name;
+        income.amount = item.amount;
+        // income.categoryId = item.categoryId;
+        // income.userId = item.userId;
+
+        // category.id = item.category.id;
+        category.name = item.category.name;
+
+        // user.id = item.user.id;
+        user.name = item.user.name;
+        user.email = item.user.email;
+
+        income.category = category;
+        income.user = user;
+        incomes.push(income);
+      }
+      return incomes;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async createAsync(income: Income): Promise<Income | null> {
     try {
       const createdIncome = await this.dbContext.income.create({

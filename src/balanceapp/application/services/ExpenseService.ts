@@ -22,6 +22,9 @@ export class ExpenseService implements IExpenseService {
     this._expenseRepository = ExpenseRepository;
     this._tokenRepository = TokenRepository;
   }
+  async getByUserIdAsync(authorization: string): Promise<ServiceResult> {
+    throw new Error("Method not implemented.");
+  }
 
   async getAll(): Promise<ServiceResult> {
     const items = await this._expenseRepository.getAll();

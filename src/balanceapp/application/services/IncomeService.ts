@@ -50,4 +50,14 @@ export class IncomeService implements IIncomeService {
     if (createdIncome == null) throw new ServiceResult(HttpStatusCodes.BAD_REQUEST, "No se pudo crear el ingreso");
     return new ServiceResult(HttpStatusCodes.OK, "Ingreso creado correctamente", createdIncome);
   }
+
+  async getByUserIdAsync(authorization: string): Promise<ServiceResult> {
+    const validToken = await this._tokenRepository.findValidTokenAsync(authorization);
+
+    if (validToken == null) throw new ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
+
+    const items = await this._incomeRepository.getByUserIdAsync(validToken.userId);
+
+    return new ServiceResult(HttpStatusCodes.OK, "Ingresos obtenidos correctamente", items);
+  }
 }

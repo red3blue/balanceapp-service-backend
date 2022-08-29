@@ -35,4 +35,16 @@ export class IncomeController {
       throw err;
     }
   }
+
+  @Get("/getByUserId")
+  async getByUserId(@Headers("Authorization") authorization: string): Promise<ServiceResult> {
+    try {
+      const serviceResult = await this._incomeService.getByUserIdAsync(authorization);
+      return serviceResult;
+    } catch (error) {
+      let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+      if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
+      throw err;
+    }
+  }
 }
