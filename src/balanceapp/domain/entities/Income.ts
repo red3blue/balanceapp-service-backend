@@ -1,3 +1,4 @@
+import { Category } from "./Category";
 import { User } from "./User";
 
 export class Income {
@@ -10,6 +11,8 @@ export class Income {
   amount: number;
   categoryId: string;
   userId: string;
+  category: Category
+  user: User;
 
   validateFields() {
     return [];

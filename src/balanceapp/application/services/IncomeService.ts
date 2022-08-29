@@ -45,7 +45,7 @@ export class IncomeService implements IIncomeService {
       throw new ServiceResult(HttpStatusCodes.BAD_REQUEST, validIncome.join(", "));
     }
 
-    const createdIncome = await this._incomeRepository.createAsync(authorization, income);
+    const createdIncome = await this._incomeRepository.createAsync(income);
 
     if (createdIncome == null) throw new ServiceResult(HttpStatusCodes.BAD_REQUEST, "No se pudo crear el ingreso");
     return new ServiceResult(HttpStatusCodes.OK, "Ingreso creado correctamente", createdIncome);
