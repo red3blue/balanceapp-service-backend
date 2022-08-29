@@ -12,9 +12,12 @@ import { CategoryRepository } from "./balanceapp/infrastructure/repositories/Cat
 import { CategoryService } from "./balanceapp/application/services/CategoryService";
 import { CategoryController } from "./balanceapp/infrastructure/controllers/CategoryController";
 import { TokenRepository } from "./balanceapp/infrastructure/repositories/TokenRepository";
+import { ExpenseController } from "./balanceapp/infrastructure/controllers/ExpenseController";
+import { ExpenseService } from "./balanceapp/application/services/ExpenseService";
+import { ExpenseRepository } from "./balanceapp/infrastructure/repositories/ExpenseRepository";
 @Module({
   imports: [],
-  controllers: [AppController, IncomeController, UserController, CategoryController],
+  controllers: [AppController, IncomeController, ExpenseController, UserController, CategoryController],
   providers: [
     PrismaService,
     {
@@ -44,6 +47,14 @@ import { TokenRepository } from "./balanceapp/infrastructure/repositories/TokenR
     {
       provide: TYPES.ITokenRepository,
       useClass: TokenRepository,
+    },
+    {
+      provide: TYPES.IExpenseService,
+      useClass: ExpenseService
+    },
+    {
+      provide: TYPES.IExpenseRepository,
+      useClass: ExpenseRepository
     }
   ],
 })

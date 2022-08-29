@@ -1,3 +1,4 @@
+import { Category } from "./Category";
 import { User } from "./User";
 
 export class Expense {
@@ -10,4 +11,10 @@ export class Expense {
   amount: number;
   categoryId: string;
   userId: string;
+  category: Category
+  user: User;
+
+  validateFields() {
+    return [];
+  }
 }
