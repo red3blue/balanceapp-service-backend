@@ -30,14 +30,14 @@ export class IncomeService implements IIncomeService {
   async createAsync(authorization: string, incomeDto: IncomeDto): Promise<ServiceResult> {
     const validToken = await this._tokenRepository.findValidTokenAsync(authorization);
 
-    if (validToken == null) throw new  ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
+    if (validToken == null) throw new ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
 
     const income = new Income();
 
     income.name = incomeDto.name;
     income.amount = incomeDto.amount;
     income.categoryId = incomeDto.categoryId;
-    income.userId = validToken.userId
+    income.userId = validToken.userId;
 
     const validIncome = income.validateFields();
 

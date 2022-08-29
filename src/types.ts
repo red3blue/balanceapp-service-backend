@@ -3,7 +3,7 @@ export const TYPES = {
   ICategoryService: Symbol("ICategoryService"),
   IIncomeService: Symbol("IIncomeService"),
   IExpenseService: Symbol("IExpenseService"),
-  
+
   IUserRepository: Symbol("IUserRepository"),
   ICategoryRepository: Symbol("ICategoryRepository"),
   IIncomeRepository: Symbol("IIncomeRepository"),

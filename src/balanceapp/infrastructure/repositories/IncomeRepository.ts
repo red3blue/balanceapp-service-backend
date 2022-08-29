@@ -16,9 +16,9 @@ export class IncomeRepository implements IIncomeRepository {
         include: {
           category: true,
           user: true,
-        }
+        },
       });
-      
+
       for (const item of items) {
         const income = new Income();
         const category = new Category();
@@ -40,7 +40,7 @@ export class IncomeRepository implements IIncomeRepository {
         income.user = user;
         incomes.push(income);
       }
-      return incomes
+      return incomes;
     } catch (error) {
       return null;
     }
@@ -48,13 +48,14 @@ export class IncomeRepository implements IIncomeRepository {
 
   async createAsync(income: Income): Promise<Income | null> {
     try {
-      const createdIncome = await this.dbContext.income.create({ data: {
-        name: income.name,
-        amount: income.amount,
-        categoryId: income.categoryId,
-        userId: income.userId,
-
-      } });
+      const createdIncome = await this.dbContext.income.create({
+        data: {
+          name: income.name,
+          amount: income.amount,
+          categoryId: income.categoryId,
+          userId: income.userId,
+        },
+      });
 
       const incomeResponse = new Income();
       incomeResponse.id = createdIncome.id;

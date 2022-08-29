@@ -6,12 +6,12 @@ export class Income {
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
-  
+
   name: string;
   amount: number;
   categoryId: string;
   userId: string;
-  category: Category
+  category: Category;
   user: User;
 
   validateFields() {

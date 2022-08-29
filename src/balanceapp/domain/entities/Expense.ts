@@ -11,7 +11,7 @@ export class Expense {
   amount: number;
   categoryId: string;
   userId: string;
-  category: Category
+  category: Category;
   user: User;
 
   validateFields() {

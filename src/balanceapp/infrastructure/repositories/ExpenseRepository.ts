@@ -16,9 +16,9 @@ export class ExpenseRepository implements IExpenseRepository {
         include: {
           category: true,
           user: true,
-        }
+        },
       });
-      
+
       for (const item of items) {
         const expense = new Expense();
         const category = new Category();
@@ -40,7 +40,7 @@ export class ExpenseRepository implements IExpenseRepository {
         expense.user = user;
         expenses.push(expense);
       }
-      return expenses
+      return expenses;
     } catch (error) {
       return null;
     }
@@ -48,13 +48,14 @@ export class ExpenseRepository implements IExpenseRepository {
 
   async createAsync(expense: Expense): Promise<Expense | null> {
     try {
-      const createdExpense = await this.dbContext.expense.create({ data: {
-        name: expense.name,
-        amount: expense.amount,
-        categoryId: expense.categoryId,
-        userId: expense.userId,
-
-      } });
+      const createdExpense = await this.dbContext.expense.create({
+        data: {
+          name: expense.name,
+          amount: expense.amount,
+          categoryId: expense.categoryId,
+          userId: expense.userId,
+        },
+      });
 
       const expenseResponse = new Expense();
       expenseResponse.id = createdExpense.id;

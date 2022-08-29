@@ -8,17 +8,17 @@ import { TYPES } from "src/types";
 export class CategoryController {
   constructor(@Inject(TYPES.ICategoryService) private readonly _categoryService: ICategoryService) {}
 
-//   @Get("/all")
-//   async getAll(): Promise<ServiceResult | any> {
-//     try {
-//       const serviceResult = await this._incomeService.getAll();
-//       return serviceResult;
-//     } catch (error) {
-//       let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-//       if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
-//       throw err;
-//     }
-//   }
+  //   @Get("/all")
+  //   async getAll(): Promise<ServiceResult | any> {
+  //     try {
+  //       const serviceResult = await this._incomeService.getAll();
+  //       return serviceResult;
+  //     } catch (error) {
+  //       let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+  //       if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
+  //       throw err;
+  //     }
+  //   }
 
   @Post("/create")
   async create(@Body() body: CategoryDto): Promise<ServiceResult> {

@@ -50,12 +50,12 @@ import { ExpenseRepository } from "./balanceapp/infrastructure/repositories/Expe
     },
     {
       provide: TYPES.IExpenseService,
-      useClass: ExpenseService
+      useClass: ExpenseService,
     },
     {
       provide: TYPES.IExpenseRepository,
-      useClass: ExpenseRepository
-    }
+      useClass: ExpenseRepository,
+    },
   ],
 })
 export class AppModule {}

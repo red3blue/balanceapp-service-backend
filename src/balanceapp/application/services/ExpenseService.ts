@@ -24,7 +24,6 @@ export class ExpenseService implements IExpenseService {
   }
 
   async getAll(): Promise<ServiceResult> {
-
     const items = await this._expenseRepository.getAll();
 
     return new ServiceResult(HttpStatusCodes.OK, "Egresos obtenidos correctamente", items);
@@ -33,14 +32,14 @@ export class ExpenseService implements IExpenseService {
   async createAsync(authorization: string, expenseDto: ExpenseDto): Promise<ServiceResult> {
     const validToken = await this._tokenRepository.findValidTokenAsync(authorization);
 
-    if (validToken == null) throw new  ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
+    if (validToken == null) throw new ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
 
     const expense = new Income();
 
     expense.name = expenseDto.name;
     expense.amount = expenseDto.amount;
     expense.categoryId = expenseDto.categoryId;
-    expense.userId = validToken.userId
+    expense.userId = validToken.userId;
 
     const validExpense = expense.validateFields();
 

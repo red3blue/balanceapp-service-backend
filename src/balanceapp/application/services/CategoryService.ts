@@ -10,7 +10,6 @@ import { ICategoryService } from "./ICategoryService";
 
 @Injectable()
 export class CategoryService implements ICategoryService {
-
   private readonly _categoryRepository: ICategoryRepository;
   private readonly _tokenRepository: ITokenRepository;
 
@@ -24,7 +23,7 @@ export class CategoryService implements ICategoryService {
     category.name = categoryDto.name.toLowerCase();
 
     const createdCategory = await this._categoryRepository.createAsync(category);
-    
+
     if (createdCategory == null) throw new ServiceResult(HttpStatusCodes.BAD_REQUEST, "No se pudo crear la categoria");
 
     return new ServiceResult(HttpStatusCodes.OK, "Categoria creada correctamente", createdCategory);
@@ -33,14 +32,14 @@ export class CategoryService implements ICategoryService {
   async createCategoryForUserAsync(authorization: string, categoryDto: CategoryDto): Promise<ServiceResult> {
     const validToken = await this._tokenRepository.findValidTokenAsync(authorization);
 
-    if (validToken == null) throw new  ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
+    if (validToken == null) throw new ServiceResult(HttpStatusCodes.UNAUTHORIZED, "Token invalido");
 
     const category = new Category();
     category.name = categoryDto.name.toLowerCase();
 
     const findCategory = await this._categoryRepository.findCategoryByNameAsync(category.name);
 
-    if(findCategory == null) {
+    if (findCategory == null) {
       const createdCategory = await this._categoryRepository.createAsync(category);
       if (createdCategory == null) throw new ServiceResult(HttpStatusCodes.BAD_REQUEST, "No se pudo crear la categoria");
       category.id = createdCategory.id;

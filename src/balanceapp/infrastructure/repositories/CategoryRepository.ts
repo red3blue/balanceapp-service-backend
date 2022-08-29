@@ -8,18 +8,18 @@ export class CategoryRepository implements ICategoryRepository {
   constructor(@Inject(PrismaService) private readonly dbContext: PrismaService) {}
 
   async createAsync(category: Category): Promise<Category> {
-      try {
-        const newCategory = await this.dbContext.category.create({ data: category });
+    try {
+      const newCategory = await this.dbContext.category.create({ data: category });
 
-        const categoryResponse = new Category();
-        categoryResponse.id = newCategory.id;
-        categoryResponse.name = newCategory.name.charAt(0).toUpperCase() + newCategory.name.slice(1);
-        
-        return categoryResponse;
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
+      const categoryResponse = new Category();
+      categoryResponse.id = newCategory.id;
+      categoryResponse.name = newCategory.name.charAt(0).toUpperCase() + newCategory.name.slice(1);
+
+      return categoryResponse;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
   async findCategoryByNameAsync(name: string): Promise<Category> {
@@ -31,7 +31,7 @@ export class CategoryRepository implements ICategoryRepository {
       });
 
       if (!categoryFound) return null;
-      
+
       const categoryResponse = new Category();
       categoryResponse.id = categoryFound.id;
       categoryResponse.name = categoryFound.name.charAt(0).toUpperCase() + categoryFound.name.slice(1);
@@ -53,14 +53,12 @@ export class CategoryRepository implements ICategoryRepository {
       });
 
       if (!newUserCategory) return null;
-      
+
       const categoryResponse = new Category();
       categoryResponse.id = newUserCategory.id;
 
       return categoryResponse;
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 
   async findUserCategoryByUserIdCategoryIdAsync(userId: string, categoryId: string): Promise<Category> {
@@ -74,7 +72,7 @@ export class CategoryRepository implements ICategoryRepository {
       });
 
       if (!userCategoryFound) return null;
-      
+
       const categoryResponse = new Category();
       categoryResponse.id = userCategoryFound.id;
       return categoryResponse;
