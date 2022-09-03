@@ -12,6 +12,25 @@ import { v4 as uuidv4 } from "uuid";
 export class UserRepository implements IUserRepository {
   constructor(@Inject(PrismaService) private readonly dbContext: PrismaService) {}
 
+  async getAll(): Promise<User[] | null> {
+    try {
+      const users = new Array<User>();
+      const items = await this.dbContext.user.findMany();
+
+      for (const item of items) {
+        const user = new User();
+        user.id = item.id;
+        user.name = item.name;
+        user.email = item.email;
+
+        users.push(user);
+      }
+      return users;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async createAsync(user: User): Promise<User | null> {
     try {
       var salt = bcrypt.genSaltSync(10);

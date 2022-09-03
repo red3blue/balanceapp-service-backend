@@ -8,6 +8,18 @@ import { TYPES } from "src/types";
 export class UserController {
   constructor(@Inject(TYPES.IUserService) private readonly _userService: IUserService) {}
 
+  @Get("/")
+  async getAll(): Promise<ServiceResult | any> {
+    try {
+      const serviceResult = await this._userService.getAll();
+      return serviceResult;
+    } catch (error) {
+      let err = new HttpException("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+      if (error instanceof ServiceResult) err = new HttpException(error.message, error.statusCode);
+      throw err;
+    }
+  }
+
   @Post("/create")
   async create(@Body() userDto: UserDto): Promise<ServiceResult> {
     try {
@@ -24,6 +36,7 @@ export class UserController {
       throw err;
     }
   }
+
 
   @Post("/login")
   async login(@Body() userDto: UserDto): Promise<ServiceResult> {

@@ -11,6 +11,12 @@ import { User } from "src/balanceapp/domain/entities/User";
 export class UserService implements IUserService {
   constructor(@Inject(TYPES.IUserRepository) private readonly _userRepository: IUserRepository) {}
 
+  async getAll(): Promise<ServiceResult> {
+    const items = await this._userRepository.getAll();
+
+    return new ServiceResult(HttpStatusCodes.OK, "Usuarios obtenidos correctamente", items);
+  }
+
   async createAsync(userDto: UserDto): Promise<ServiceResult> {
     const user = new User();
     user.name = userDto.name;
