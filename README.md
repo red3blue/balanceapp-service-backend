@@ -32,6 +32,8 @@ BalanceApp Service API
 # install dependencies
 $ yarn install
 
+# create .env in root path with db configuration (postgresql, mysql, etc)
+
 # update pending migrations
 $ yarn run migrations
 
